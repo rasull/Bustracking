@@ -1,0 +1,208 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BusTracking</title>
+<link rel="stylesheet" href="themes/bustracking.min.css" />
+<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.3/jquery.mobile.structure-1.4.3.min.css" />
+
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
+<script type="text/javascript" src="jquery.cookie.js"></script>
+<script type="text/javascript" src="login.js"></script>
+<script>
+
+       $(function() {
+        $( "[data-role='navbar']" ).navbar();
+        $( "[data-role='header']").toolbar();
+    });
+    // Update the contents of the toolbars
+    $( document ).on( "pagecontainershow", function() {
+        // Each of the four pages in this demo has a data-title attribute
+        // which value is equal to the text of the nav button
+        // For example, on first page: <div data-role="page" data-title="Info">
+        var current = $( ".ui-page-active" ).jqmData( "title" );
+        // Change the heading
+        $( "[data-role='header'] h1" ).text( current );
+        // Remove active class from nav buttons
+        $( "[data-role='navbar'] a.ui-btn-active" ).removeClass( "ui-btn-active" );
+        // Add active class to current nav button
+        $( "[data-role='navbar'] a" ).each(function() {
+            if ( $( this ).text() === current ) {
+                $( this ).addClass( "ui-btn-active" );
+            }
+        });
+    });
+//
+//	
+//$("#login").click(function() {
+//	if ($('#remember').attr('checked')) {
+//		var username = $('#userid').attr("value");
+//		var password = $('#password').attr("value");
+//		// set cookies to expire in 14 days
+//		$.cookie('userid', username, { expires: 14 });
+//		$.cookie('password', password, { expires: 14 });
+//		$.cookie('remember', true, { expires: 14 });
+//		}
+//	 else {
+//		// reset cookies
+//		$.cookie('userid', null);
+//		$.cookie('password', null);
+//		$.cookie('remember', null);
+//		}
+//});
+//
+// $( document ).on(function(){
+//// read from cookie  
+//	  var remember = $.cookie('remember');
+//	if ( remember == 'true' ) {
+//		var username = $.cookie('userid');
+//		var password = $.cookie('password');
+//		// autofill the fields
+//		$('#userid').attr("value", username);
+//		$('#password').attr("value", password);
+//	}
+// });
+  //$.mobile.loadPage( "index.html", true, {
+//  type: "post",
+//  data: $( "form#form" ).serialize()
+//});
+	</script>
+    
+  
+</head>
+
+<body>
+
+<!-- **********************************************************************-->
+<!-- header nav*--> 
+   
+<div data-role="header" data-position="fixed" data-theme="a" data-tap-toggle="false">
+      <!-- <a href="" data-rel="back" class="ui-btn ui-btn-left ui-alt-icon ui-nodisc-icon ui-corner-all ui-btn-icon-notext ui-icon-carat-l">Back</a>-->
+			 <a href="#positionWindow" data-rel="popup" data-position-to="window" data-icon="gear" data-prefetch="true" style="text-decoration:none ; color:black" data-transition="pop">About</a>
+      		   	<h1> </h1> <!-- this tag used to present title in header-->
+                
+    <!-- <div data-role="popup" id="positionWindow" id="popupPadded" style="background-color:#CCC">-->
+		<div data-role="popup" id="positionWindow" id="popupPadded" style="background-color:#CCC; text-align:center">
+		<p>About Us</p>
+        <hr>
+        <img src="photo/AUSTLogo.png" width="70" height="70">
+        <p>Bus Tracking System BTS Project<p>
+        <p style="text-align:left">Work Team:
+        <ul style="text-align:left">
+        <li>Abdulrasull Mahmeed</li>
+        <li>Khalid Fakhro</li>
+        <li>Mohammad Talal</li>
+        <li>Sameh alaa</li></ul>
+        <br>
+        Supervisor: Dr. Khalid Ammar
+        <br>
+        </p>
+	 	</div>
+</div>
+	<!-- </div>-->
+<!--</div>-->
+
+<!-- **********************************************************************-->
+<!-- Main content *-->  
+  
+<div data-role="page" id="main" data-theme="a"> 
+       
+	<div data-role="content" data-theme="a">
+			    <div class="container">
+                <div class="main">
+                   <div id="logo">
+                 <br><p>Logo.......</p>
+                 </div>
+                 <div class="PLogin">
+           <!--   Begin Parent Login form *************************-->
+                    <form class="form"  id="form" method="post" action="">
+                    <fieldset data-role="collapsible" data-theme="a" data-content-theme="a">
+                    <legend>Parent Login</legend>
+                    <h2>Login to Web App</h2>
+                    <label>User :</label>
+                    <input type="text" name="userid" id="userid" placeholder="Username">
+                    <label>Password :</label>
+                    <input type="password" name="password" id="password" placeholder="Password">
+                    <p class="remember_me">
+                          <label>
+                            <input type="checkbox" name="remember" id="remember">
+                            Remember me on this computer
+                          </label>
+                     </p>
+                    <!--  <a href="index.html" data-role="button" id="login" data-ajax="false">Login</a>-->
+
+                    <input type="button" name="Plogin" id="Plogin" value="Login">
+                    </fieldset>
+                   </form>
+                    </div>
+        <!--   End Parent Login form *************************-->
+        <!--   Begin staff Login form *************************-->
+        <br>
+        
+              <div class="SLogin">
+                
+                    <form class="form"  id="form" method="post" action="">
+                    <fieldset data-role="collapsible" data-theme="a" data-content-theme="a">
+                    <legend>Staff Login</legend>
+                    <h2>Login to Web App</h2>
+                    <label>User :</label>
+                    <input type="text" name="Suserid" id="Suserid" placeholder="Username">
+                    <label>Password :</label>
+                    <input type="password" name="Spassword" id="Spassword" placeholder="Password">
+                    <p class="remember_me">
+                          <label>
+                            <input type="checkbox" name="Sremember" id="Sremember">
+                            Remember me on this computer
+                          </label>
+                     </p>
+                    <!--  <a href="index.html" data-role="button" id="login" data-ajax="false">Login</a>-->
+
+                    <input type="button" name="Slogin" id="Slogin" value="Login">
+                    </fieldset>
+                    </form>
+                    </div>
+               <!--   End Staff Login form *************************-->
+                   
+        </div>
+</div> 
+</div>
+</div>
+
+
+<!-- **********************************************************************-->
+<!-- footer nav*-->  
+  
+<!--<div data-role="footer" style="overflow:hidden;" data-position="fixed" data-theme="a">
+    <div data-role="navbar">
+        <ul>
+            <li><a href="#PLogin" data-icon="user" data-prefetch="true" data-transition="fade">PARENT LOGIN</a></li>
+            <li><a href="#SLogin"  data-icon="user" data-prefetch="true" data-transition="flip">STAFF LOGIN</a></li>
+                     
+        </ul>
+    </div>
+    </div>
+-->
+
+<!-- /Footer -->
+<!-- **********************************************************************-->
+<!-- Parent login *-->
+    
+<div data-role="page" id="PLogin">
+		<div data-role="content"  data-theme="a">
+        
+        
+       </div> <!--   End content div ******-->
+</div>    <!--   End page div ******-->
+
+
+<!-- **********************************************************************-->
+<!-- **********************************************************************-->
+<!-- Staff login *-->
+
+
+
+</body>
+</html>
