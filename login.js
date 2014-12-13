@@ -41,7 +41,7 @@ $(document).ready(function(){
 					alert("Please fill all fields...!!!!!!");
 			}else {
 					// send user and pass to check in DataBase
-					$.post("Login.php",{ login: login, userID: userid, password1:password},
+					$.post("http://www.kahf-313.com/bus/Login.php",{ login: login, userID: userid, password1:password},
 			
 			function(data) {
 					if(data=='Invalid User.......') {
@@ -54,14 +54,14 @@ $(document).ready(function(){
 						alert(data);
 						} 
 					else if(data=='Successfully Logged in...'){
-						$.get("userHolder.php",{ userID: userid});
+						$.get("http://www.kahf-313.com/bus/userHolder.php",{ userID: userid});
 						//$("form")[0].reset();
 						$('input[type="text"],input[type="password"]').css({"border":"2px solid #00F5FF","box-shadow":"0 0 5px #00F5FF"});
 						alert(data);
 						// function redirect
 						$("[data-role='footer']").show(); // to show footer to user
-						//myRedirect("index.html", "userID", userid);
-						var url = "index.html#detail";    
+						//myRedirect("http://www.kahf-313.com/bus/home.html", "userID", userid);
+						var url = "home.html#detail";    
 						$(location).attr('href',url); // redirect to main page after login 
 						} 
 					else{
@@ -119,7 +119,7 @@ $(document).ready(function(){
 						// function redirect
 						$("[data-role='footer']").show(); // to show footer to user
 						//myRedirect("index.html", "userID", userid);
-						var url = "http://www.kahf-313.com/bus/AdminCtrl.html";    
+						var url = "AdminCtrl.html";    
 						$(location).attr('href',url); // redirect to main page after login 
 						} 
 					else{
