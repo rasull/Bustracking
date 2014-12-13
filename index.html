@@ -51,7 +51,11 @@
         });
     });
 	
-	
+	$(document).on('pageshow',"#main", function(){
+		 $( "[data-role='navbar']" ).navbar();
+        $( "[data-role='header'],[data-role='footer']").toolbar();
+			$("[data-role='footer']").toolbar('hide');
+	});
 //000000000000000000000000000000000000000000000000000000000000000000000000000000
 //&&&&&&&&&&&&&&&&&&&&&& Map initialize and retirive data  &&&&&&&&&&&&&&&&&&&&&
 //000000000000000000000000000000000000000000000000000000000000000000000000000000	
@@ -292,7 +296,7 @@ function myFunction(response) {
 <!-- Header *-->
 
 		<div data-role="header" data-position="fixed" data-theme="a">
-       <a href="" data-rel="back" class="ui-btn ui-btn-left ui-alt-icon ui-nodisc-icon ui-corner-all ui-btn-icon-notext ui-icon-carat-l">Back</a>
+      <!-- <a href="" data-rel="back" class="ui-btn ui-btn-left ui-alt-icon ui-nodisc-icon ui-corner-all ui-btn-icon-notext ui-icon-carat-l">Back</a>-->
 			<!--<button onClick="#detail" data-iconshadow="true" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-user">Home</button> -->
             <a href="#positionWindow" data-rel="popup" data-position-to="window" data-icon="gear" data-prefetch="true" style="text-decoration:none ; color:black" data-transition="pop">About</a>
       		   	<h1> </h1> <!-- this tag used to present title in header-->
