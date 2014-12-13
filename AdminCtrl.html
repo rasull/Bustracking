@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Bus Tracking</title>
+	<link rel="stylesheet" href="themes/bustracking.min.css" />
+	<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.3/jquery.mobile.structure-1.4.3.min.css" />
+	<link rel="stylesheet" href="DetailStyle.css" />
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
+   <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>-->
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+  <script type="text/javascript" src="jquery.cookie.js"></script><!--// jquery library for cookie-->
+  <script type="text/javascript" src="login.js"></script> <!--// javascript for login-->
+ 
+
+<script>
+function validateFormStudent() {
+  
+	var x = document.forms["student"]["fname"].value;
+    if (x==null || x=="") {
+		document.student.fname.focus() ;
+		alert("First name must be filled out");
+        return false;
+	}
+	
+	var x = document.forms["student"]["lname"].value;
+    if (x==null || x=="") {
+		document.student.lname.focus() ;
+        alert("Last name must be filled out");
+        return false;
+	}
+	
+	var x = document.forms["student"]["stdid"].value;
+    if (x==null || x=="") {
+		document.student.stdid.focus() ;
+        alert("Student ID must be filled out");
+        return false;
+	}
+	
+	var x = document.forms["student"]["busid"].value;
+    if (x==null || x=="") {
+		document.student.busid.focus() ;
+        alert("Bus ID must be filled out");
+        return false;
+	}
+}
+function validateFormBus(){
+	var x = document.forms["bus"]["Busid"].value;
+    if (x==null || x=="") {
+		document.bus.Busid.focus() ;
+        alert("Bus ID must be filled out");
+        return false;
+	}
+	
+	var x = document.forms["bus"]["dname"].value;
+    if (x==null || x=="") {
+		document.bus.dname.focus() ;
+        alert("Driver name must be filled out");
+        return false;
+	}
+}
+function validateFormAttend(){
+	var x = document.forms["attend"]["Astdid"].value;
+    if (x==null || x=="") {
+		document.attend.Astdid.focus() ;
+        alert("Student ID must be filled out");
+        return false;
+	}
+	
+	var x = document.forms["attend"]["rfid_id"].value;
+    if (x==null || x=="") {
+		document.attend.rfid_id.focus() ;
+        alert("RFID Tag must be filled out");
+        return false;
+	}
+}
+function validateFormUser(){
+	var x = document.forms["user"]["user_Id"].value;
+    if (x==null || x=="") {
+		document.user.user_Id.focus() ;
+        alert("User ID must be filled out");
+        return false;
+	}
+	
+	var x = document.forms["user"]["userpass"].value;
+    if (x==null || x=="") {
+		document.user.userpass.focus() ;
+        alert("Pssword must be filled out");
+        return false;
+	}
+	
+	var x = document.forms["user"]["Fname"].value;
+    if (x==null || x=="") {
+		document.user.Fname.focus() ;
+        alert("First Name must be filled out");
+        return false;
+	}
+	
+	var x = document.forms["user"]["Lname"].value;
+    if (x==null || x=="") {
+		document.user.Lname.focus() ;
+        alert("Last Name must be filled out");
+        return false;
+	}
+	
+	var x = document.forms["user"]["phone"].value;
+    if (x==null || x=="") {
+		document.user.phone.focus() ;
+        alert("Phone Number must be filled out");
+        return false;
+	}
+	
+	var x = document.forms["user"]["address"].value;
+    if (x==null || x=="") {
+		document.user.address.focus() ;
+        alert("Adress must be filled out");
+        return false;
+	}
+	
+	var y = document.forms["user"]["email"].value;
+    var atpos = y.indexOf("@");
+    var dotpos = y.lastIndexOf(".");
+    if (atpos< 1 || dotpos<atpos+2 || dotpos+2>=y.length) {
+        document.user.email.focus() ;
+		alert("Not a valid e-mail address");
+        return false;
+    }
+	var x = document.forms["user"]["Stdid"].value;
+    if (x==null || x=="") {
+		document.user.Stdid.focus() ;
+        alert("Student ID must be filled out");
+        return false;
+	}
+	
+}
+
+
+  $(function() {
+        $( "[data-role='navbar']" ).navbar();
+        $( "[data-role='header']").toolbar();
+    });
+    // Update the contents of the toolbars
+    $( document ).on( "pagecontainershow", function() {
+        // Each of the four pages in this demo has a data-title attribute
+        // which value is equal to the text of the nav button
+        // For example, on first page: <div data-role="page" data-title="Info">
+        var current = $( ".ui-page-active" ).jqmData( "title" );
+        // Change the heading
+        $( "[data-role='header'] h1" ).text( current );
+        // Remove active class from nav buttons
+        $( "[data-role='navbar'] a.ui-btn-active" ).removeClass( "ui-btn-active" );
+        // Add active class to current nav button
+        $( "[data-role='navbar'] a" ).each(function() {
+            if ( $( this ).text() === current ) {
+                $( this ).addClass( "ui-btn-active" );
+            }
+        });
+    });
+</script>
+ 
+</head>
+<body>
+
+      
+<!-- //*********************************************************************       
+ ********************* header page*******************************************-->
+<div data-role="header" data-position="fixed" data-theme="a">
+       <button onClick="window.location.href ='login.html'" data-rel="" class="ui-btn ui-btn-left ui-alt-icon ui-nodisc-icon ui-corner-all ui-btn-icon-notext ui-icon-power" data-transition="slidedown">Login Out</button>
+			<!--<button onClick="#detail" data-iconshadow="true" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-user">Home</button> -->
+            <a href="#positionWindow" data-rel="popup" data-position-to="window" data-icon="gear" data-prefetch="true" style="text-decoration:none ; color:black" data-transition="pop">About</a>
+      		   	<h1> </h1> <!-- this tag used to present title in header-->
+                
+     <div data-role="popup" id="positionWindow" id="popupPadded" style="background-color:#CCC; text-align:center">
+		<p>About Us</p>
+        <hr>
+        <img src="photo/AUSTLogo.png" width="70" height="70">
+        <p>Bus Tracking System BTS Project<p>
+        <p style="text-align:left">Work Team:
+        <ul>
+        <li>Abdulrasull Mahmeed</li>
+        <li>Khalid Fakhro</li>
+        <li>Mohammad Talal</li>
+        <li>Sameh alaa</li></ul>
+        <br>
+        Supervisor: Dr. Khalid Ammar
+        <br>
+        </p>
+	 </div>
+</div>
+        
+        
+<!-- //*********************************************************************       
+ ********************* contant page*******************************************-->
+<div data-role="page" id="main" data-theme="a">
+		<div data-role="content"  data-theme="a">
+        <h2 style="text-align:center"> Administrator Control Panel</h2>
+        <br>
+        <button id="AddToDB_Btn">Add Data To DB</button>
+        <button id="HideAddToDB_Btn" style="display:none">Hide: Add Data To DB</button>
+        <button id="DisplayToDB_Btn">Display Data From DB</button>
+        <button id="HideDisplayToDB_Btn" style="display:none">Hide: Display Data From DB</button>
+        <button id="ModifyToDB_Btn">Modify Data From DB</button>
+        <button id="HideModifyToDB_Btn" style="display:none">Hide: Modify Data From DB</button>
+
+<!--  *******************************************************************-->              
+<!--  ********************Add Button Control ****************************-->    
+<!--  *******************************************************************-->                
+<!--  *******************************************************************-->              
+<!--  ********************Add Student Control ****************************-->    
+<!--  *******************************************************************-->        
+        <div id="AddToDB" style="display:none">
+            <button class="AddStd">Add New Student</button>
+            <button class="HideAddStd" style="display:none">Hide Add Student Form</button> 
+                
+                <div class="StdAdd" id="StdAdd" style="display:none">
+                 <!--   Begin student form *************************-->
+                    <form action="AddData.php" name="student" class="student" onsubmit="return validateFormStudent()" method="post">
+                    <fieldset>
+                    <legend><em>Add Student</em></legend>
+                    <label>First name</label>
+                    <input type="text" name="fname" id="fname" placeholder="First Name ">
+                    <label>Last name</label>
+                    <input type="text" name="lname" id="lname" placeholder="Last Name">
+                    <label>Student ID</label>
+                    <input type="text" name="stdid" id="stdid" placeholder="Student ID">
+                    <label>Bus ID</label>
+                    <input type="text" name="busid" id="busid" placeholder="Bus ID">
+                    <label>User ID</label>
+                    <input type="text" name="user_id" id="user_id" placeholder="User ID">
+                    
+                    <input type="submit" name="ADD" id="ADD" value="ADD">
+                    </fieldset>
+                    </form>
+                    <div id="R_msg"></div>
+                  
+                </div>
+					 <script>   
+					 				 $( ".AddStd" ).click(function() {
+                                      $(".StdAdd").toggle("slow");
+                                      $(".HideAddStd").toggle("slow");
+                                      $(".AddStd").toggle("slow");
+									  $(".AddUser").toggle("slow");
+									  $(".AddBus").toggle("slow");
+									  $(".AddAttend").toggle("slow");
+                                   });
+                                    $( ".HideAddStd" ).click(function() {
+                                         
+                                     $(".StdAdd").toggle("slow");
+                                     $(".AddStd").toggle("slow");
+                                     $(".HideAddStd").toggle("slow");
+									  $(".AddUser").toggle("slow");
+									  $(".AddBus").toggle("slow");
+									  $(".AddAttend").toggle("slow");
+                                    });
+			//*********************************************************
+			
+			// Attach a submit handler to the form
+					$( ".student" ).submit(function( event ) {
+					 
+					  // Stop form from submitting normally
+					  event.preventDefault();
+					 
+					  // Get some values from elements on the page:
+					  var $form = $( this ),
+						Fname = $form.find( "input[name='fname']" ).val(),
+						Lname = $form.find( "input[name='lname']" ).val(),
+						Stdid = $form.find( "input[name='stdid']" ).val(),
+						Busid = $form.find( "input[name='busid']" ).val(),
+						Userid = $form.find( "input[name='user_id']" ).val(),
+						url = $form.attr( "action" );
+					 
+					  // Send the data using post
+					  var posting = $.post( url, { Add: 'addStd',Fname: Fname, Lname: Lname, Stdid: Stdid, Busid: Busid, Userid: Userid } );
+					 
+					  // Put the results in a div
+					  posting.done(function( data ) {
+						  alert(data);
+						//var content = $( data ).find( "#content" );
+//						$( "#R_msg" ).empty().append( content );
+					  });
+					});						
+														
+        
+                    </script>
+                  <!--   End student form *************************-->
+     
+<!--  *******************************************************************-->              
+<!--  ********************Add Bus Control ****************************-->    
+<!--  *******************************************************************-->   
+                 <!--   Begin bus form *************************-->
+                <button class="AddBus">Add New Bus</button>
+                <button class="HideAddBus" style="display:none">Hide New Bus Form</button>
+                <div class="BusAdd" id="BusAdd" style="display:none">
+                  
+                    <form name="bus" class="bus" onsubmit="return validateFormBus()" method="post"  action="AddData.php">
+                    <fieldset>
+                    <legend><em>Bus Details</em></legend>
+                    <label>Bus ID</label>
+                    <input type="text" name="Busid" id="Busid" placeholder="Bus ID">
+                    <label>Driver name</label>
+                    <input type="text" name="dname" id="dname" placeholder="Driver Name">
+                    
+                    <input type="submit" name="ADD" id="ADD" value="ADD">
+                    </fieldset>
+                    </form>
+                 </div>
+                  <script>    $( ".AddBus" ).click(function() {
+							  $(".BusAdd").toggle("slow");
+							  $(".HideAddBus").toggle("slow");
+							  $(".AddBus").toggle("slow");
+							  $(".AddUser").toggle("slow");
+							  $(".AddStd").toggle("slow");
+							  $(".AddAttend").toggle("slow");
+						   });
+							$( ".HideAddBus" ).click(function() {
+								 
+							 $(".BusAdd").toggle("slow");
+							 $(".AddBus").toggle("slow");
+							 $(".HideAddBus").toggle("slow");
+							 $(".AddUser").toggle("slow");
+							 $(".AddStd").toggle("slow");
+							 $(".AddAttend").toggle("slow");
+							});
+							
+							
+							// Attach a submit handler to the form
+					$( ".bus" ).submit(function( event ) {
+					 
+					  // Stop form from submitting normally
+					  event.preventDefault();
+					 
+					  // Get some values from elements on the page:
+					  var $form = $( this ),
+						Busid = $form.find( "input[name='Busid']" ).val(),
+						dname = $form.find( "input[name='dname']" ).val(),
+						url = $form.attr( "action" );
+					 
+					  // Send the data using post
+					  var posting = $.post( url, { Add:'AddBus',Busid: Busid, dname: dname } );
+					 
+					  // Put the results in a div
+					  posting.done(function( data ) {
+						  alert(data);
+						//var content = $( data ).find( "#content" );
+//						$( "#R_msg" ).empty().append( content );
+					  });
+					});		
+
+			</script>
+                  <!--   End bus form *************************-->
+<!--  *******************************************************************-->              
+<!--  ********************Add Attend Control ****************************-->    
+<!--  *******************************************************************-->   
+                  <!--   Begin attend form *************************-->
+                   <button class="AddAttend">Add New RFID to Attend</button>
+                   <button class="HideAddAttend" style="display:none">Hide New RFID Form</button>
+                  <div class="AttendAdd" id="AttendAdd" style="display:none">
+                    <form name="attend" class="attend" onsubmit="return validateFormAttend()" method="post"  action="AddData.php">
+                    <fieldset>
+                    <legend><em>Attend</em></legend>
+                    <label>Student ID</label>
+                    <input type="text" name="Astdid" id="Astdid" placeholder="Student ID">
+                    <label>RFID Tag </label>
+                    <input type="text" name="rfid_id" id="rfid_id" placeholder="RFID Tag ID">
+                    <input type="submit" name="ADD" id="ADD" value="ADD">
+                    </fieldset>
+                    </form>
+                  </div>
+                   <script>  
+				   			  $( ".AddAttend" ).click(function() {
+							  $(".AttendAdd").toggle("slow");
+							  $(".HideAddAttend").toggle("slow");
+							  $(".AddAttend").toggle("slow");
+							  $(".AddUser").toggle("slow");
+							  $(".AddBus").toggle("slow");
+							  $(".AddStd").toggle("slow");
+						   });
+							$( ".HideAddAttend" ).click(function() {
+								 
+							 $(".AttendAdd").toggle("slow");
+							 $(".AddAttend").toggle("slow");
+							 $(".HideAddAttend").toggle("slow");
+							 $(".AddUser").toggle("slow");
+							 $(".AddBus").toggle("slow");
+							 $(".AddStd").toggle("slow");
+							});
+
+						$( ".attend" ).submit(function( event ) {
+					 
+					  // Stop form from submitting normally
+					  event.preventDefault();
+					 
+					  // Get some values from elements on the page:
+					  var $form = $( this ),
+						Astdid = $form.find( "input[name='Astdid']" ).val(),
+						rfid_id = $form.find( "input[name='rfid_id']" ).val(),
+						url = $form.attr( "action" );
+					 
+					  // Send the data using post
+					  var posting = $.post( url, { Add:'AddAttend',Astdid: Astdid, rfid_id: rfid_id } );
+					 
+					  // Put the results in a div
+					  posting.done(function( data ) {
+						  alert(data);
+						//var content = $( data ).find( "#content" );
+//						$( "#R_msg" ).empty().append( content );
+					  });
+					});		
+					</script>
+                  <!--   End attend form *************************-->
+<!--  *******************************************************************-->              
+<!--  ********************Add User Control ****************************-->    
+<!--  *******************************************************************-->   
+                  <!--   Begin user form *************************-->
+                   <button class="AddUser">Add New User</button>
+                   <button class="HideAddUser" style="display:none">Hide New User Form</button>
+                   <div class="UserAdd" id="UserAdd" style="display:none">
+                    <form name="user" class="user" onsubmit="return validateFormUser()" method="post"  action="AddData.php">
+                    <fieldset>
+                    <legend><em>Add user</em></legend>
+                    <label>User ID</label>
+                    <input type="text" name="user_Id" id="user_Id" placeholder="User ID">
+                    <label>User Password</label>
+                    <input type="password" name="userPass" id="userpass" placeholder="Password">
+                    <label>First Name</label>
+                    <input type="text" name="Fname" id="Fname" placeholder="First Name">
+                    <label>Last Name</label>
+                    <input type="text" name="Lname" id="Lname" placeholder="Last Name">
+                    <label>Phone Number </label>
+                    <input type="tel" name="phone" id="phone" placeholder="Phone Number">
+                    <label>Address</label>
+                    <input type="text" name="address" id="address" placeholder="Address">
+                    <label>Email Address</label>
+                    <input type="email" name="email" id="email" placeholder="example@example.ex">
+                    <label>Student ID</label>
+                    <input type="text" name="Stdid" id="Stdid" placeholder="Student ID">
+                    
+                    <input type="submit" name="ADD" id="ADD" value="ADD">
+                    </fieldset>
+                    </form>
+                    </div>
+                    <script>  
+				   		$( ".AddUser" ).click(function() {
+							  $(".UserAdd").toggle("slow"); // show form
+							  $(".HideAddUser").toggle("slow"); // show hide button
+							  $(".AddUser").toggle("slow"); // hide button
+							  $(".AddStd").toggle("slow"); // hide button
+							  $(".AddBus").toggle("slow"); // hide button
+							  $(".AddAttend").toggle("slow"); // hide button
+						   });
+							$( ".HideAddUser" ).click(function() {
+								 
+							 $(".UserAdd").toggle("slow"); // hide form
+							 $(".AddUser").toggle("slow"); // show button
+							 $(".HideAddUser").toggle("slow"); // hide button
+							 $(".AddStd").toggle("slow");// show button
+							 $(".AddBus").toggle("slow");// show button
+							 $(".AddAttend").toggle("slow");// show button
+							});
+					$( ".user" ).submit(function( event ) {
+					 
+					  // Stop form from submitting normally
+					  event.preventDefault();
+					 
+					  // Get some values from elements on the page:
+					  var $form = $( this ),
+						user_Id = $form.find( "input[name='user_Id']" ).val(),
+						userPass = $form.find( "input[name='userPass']" ).val(),
+						Fname = $form.find( "input[name='Fname']" ).val(),
+						Lname = $form.find( "input[name='Lname']" ).val(),
+						phone = $form.find( "input[name='phone']" ).val(),
+						address = $form.find( "input[name='address']" ).val(),
+						email = $form.find( "input[name='email']" ).val(),
+						Stdid = $form.find( "input[name='Stdid']" ).val(),
+						url = $form.attr( "action" );
+					 
+					  // Send the data using post
+					  var posting = $.post( url, { Add:'AddUser',user_Id: user_Id, userPass: userPass,Fname:Fname, Lname:Lname,phone:phone, address:address, email:email, Stdid:Stdid } );
+					 
+					  // Put the results in a div
+					  posting.done(function( data ) {
+						  alert(data);
+						//var content = $( data ).find( "#content" );
+//						$( "#R_msg" ).empty().append( content );
+					  });
+					});		
+					</script>
+                  <!--   End user form *************************-->
+             </div> <!--   End Add to DB div ******-->
+<!--  *******************************************************************-->              
+<!--  ******************* Display Button Control ************************-->    
+<!--  *******************************************************************-->               
+       		  <!--    Empty-->
+         
+<!--  *******************************************************************-->              
+<!--  ******************* Modify Button Control *************************-->    
+<!--  *******************************************************************-->  
+
+			<!--    Empty-->
+
+         
+<!--  *******************************************************************-->              
+<!--  ********************Button Control script *************************-->    
+<!--  *******************************************************************-->  
+           		  <script>   
+					 			 $( "#AddToDB_Btn" ).click(function() {
+                                     $("#AddToDB").toggle("slow");  // show
+									 $("#AddToDB_Btn").toggle("slow");// hide
+									 $("#HideAddToDB_Btn").toggle("slow"); //show
+									 $("#DisplayToDB_Btn").toggle("slow");// hide
+									 $("#ModifyToDB_Btn").toggle("slow");// hide
+									 
+                                   });
+                                $( "#HideAddToDB_Btn" ).click(function() {
+                                     $("#HideAddToDB_Btn").toggle("slow");  //hide  
+                                     $("#AddToDB").toggle("slow"); // show
+                                     $("#AddToDB_Btn").toggle("slow"); //show
+									 $("#DisplayToDB_Btn").toggle("slow");// show
+									 $("#ModifyToDB_Btn").toggle("slow");// show
+                                });
+        
+                    </script>
+             
+       </div> <!--   End content div ******-->
+</div>    <!--   End page div ******-->
+
+
+</body>
