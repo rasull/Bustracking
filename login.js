@@ -61,7 +61,7 @@ $(document).ready(function(){
 						// function redirect
 						$("[data-role='footer']").show(); // to show footer to user
 						//myRedirect("http://www.kahf-313.com/bus/home.html", "userID", userid);
-						var url = "home.html#detail";    
+						var url = "index.html#detail";    
 						$(location).attr('href',url); // redirect to main page after login 
 						} 
 					else{
