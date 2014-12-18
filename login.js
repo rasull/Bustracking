@@ -41,7 +41,7 @@ $(document).ready(function(){
 					alert("Please fill all fields...!!!!!!");
 			}else {
 					// send user and pass to check in DataBase
-					$.post("http://www.kahf-313.com/bus/Login.php",{ login: login, userID: userid, password1:password},
+					$.post("http://94.229.72.47/Login.php",{ login: login, userID: userid, password1:password},
 			
 			function(data) {
 					if(data=='Invalid User.......') {
@@ -54,7 +54,7 @@ $(document).ready(function(){
 						alert(data);
 						} 
 					else if(data=='Successfully Logged in...'){
-						$.get("http://www.kahf-313.com/bus/userHolder.php",{ userID: userid});
+						$.get("http://94.229.72.47/userHolder.php",{ userID: userid});
 						//$("form")[0].reset();
 						$('input[type="text"],input[type="password"]').css({"border":"2px solid #00F5FF","box-shadow":"0 0 5px #00F5FF"});
 						alert(data);
@@ -99,7 +99,7 @@ $(document).ready(function(){
 					alert("Please fill all fields...!!!!!!");
 			}else {
 					// send user and pass to check in DataBase
-					$.post("http://www.kahf-313.com/bus/Login.php",{ login:login, userID: userid, password1:password},
+					$.post("http://94.229.72.47/Login.php",{ login:login, userID: userid, password1:password},
 			
 			function(data) {
 					if(data=='Invalid User.......') {
@@ -112,7 +112,7 @@ $(document).ready(function(){
 						alert(data);
 						} 
 					else if(data=='Successfully Logged in...'){
-						$.get("http://www.kahf-313.com/bus/userHolder.php",{ userID: userid});
+						$.get("http://94.229.72.47/userHolder.php",{ userID: userid});
 						//$("form")[0].reset();
 						$('input[type="text"],input[type="password"]').css({"border":"2px solid #00F5FF","box-shadow":"0 0 5px #00F5FF"});
 						alert(data);
