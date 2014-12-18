@@ -34,6 +34,10 @@
 	text-decoration:none;
 	color:inherit;
 }
+#detail_S a{
+	text-decoration:none;
+	color:#E6EB6D;
+}
 #detail_S {
 	text-align:left;
 	
@@ -41,6 +45,7 @@
 #detail_S table ,#Attendance table{
 	width: 100%;
 	text-align:center;
+	border-collapse:separate;
 }
 #detail_S th, #Attendance th{
 	margin-left:1px;
@@ -51,6 +56,7 @@
 	background-color:#E6EB6D;
 	padding:0.3em;
 	
+	
 }
 
 #detail_S td , #Attendance td{
@@ -58,6 +64,7 @@
 	border: 1px solid #E6EB6D;
 	border-radius: 0.4em;
 	padding:0.3em;
+	text-align:center;
 	
 }
 #detail p{
